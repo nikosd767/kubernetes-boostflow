@@ -88,4 +88,3 @@ kubectl apply -f cert/Cert-issuer.yaml
 # Links
 * [cert-manager](https://cert-manager.io/docs/installation/helm/)
 * [Troubleshooting cert-manager](https://cert-manager.io/docs/troubleshooting/)
-* [Spring boot health probes](https://www.baeldung.com/spring-liveness-readiness-probes)
