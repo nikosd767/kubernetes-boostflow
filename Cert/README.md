@@ -21,7 +21,7 @@ cert-manager jetstack/cert-manager \
 
 ## create cert-issuer
 
-replace email in cert-issuer/cert-issuer.yaml file and apply
+replace email in cert-issuer/Cert-issuer.yaml file and apply
 ```bash
 kubectl apply -f cert/Cert-issuer.yaml
 ```
