@@ -40,8 +40,29 @@ spec:
             cpu: 1000m
             memory: 1Gi
         env:
+        # App Configuration from ConfigMap
         - name: NODE_ENV
-          value: "production"
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: node-env
+        - name: NEXT_PUBLIC_APP_URL
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: app-url
+        - name: NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: google-maps-api-key
+        - name: GEMINI_API_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: gemini-api-key
+        
+        # Firebase Configuration from Secret
         - name: NEXT_PUBLIC_FIREBASE_API_KEY
           valueFrom:
             secretKeyRef:
@@ -77,6 +98,122 @@ spec:
             secretKeyRef:
               name: firebase-config
               key: measurement-id
+        - name: FIREBASE_SERVICE_ACCOUNT_KEY
+          valueFrom:
+            secretKeyRef:
+              name: firebase-config
+              key: service-account-key
+        
+        # MinIO Configuration from Secret
+        - name: MINIO_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              name: minio-config
+              key: endpoint
+        - name: MINIO_EXTERNAL_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              name: minio-config
+              key: external-endpoint
+        - name: MINIO_PORT
+          valueFrom:
+            secretKeyRef:
+              name: minio-config
+              key: port
+        - name: MINIO_ROOT_USER
+          valueFrom:
+            secretKeyRef:
+              name: minio-config
+              key: root-user
+        - name: MINIO_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: minio-config
+              key: root-password
+        - name: MINIO_USE_SSL
+          valueFrom:
+            secretKeyRef:
+              name: minio-config
+              key: use-ssl
+        - name: MINIO_PROFILE_PICTURES_BUCKET
+          valueFrom:
+            secretKeyRef:
+              name: minio-config
+              key: profile-pictures-bucket
+        - name: MINIO_PROJECT_DOCUMENTS_BUCKET
+          valueFrom:
+            secretKeyRef:
+              name: minio-config
+              key: project-documents-bucket
+        
+        # OAuth Configuration from Secret
+        - name: NEXT_PUBLIC_GOOGLE_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: oauth-config
+              key: google-client-id
+        - name: NEXT_PUBLIC_GOOGLE_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: oauth-config
+              key: google-client-secret
+        - name: NEXT_PUBLIC_GITHUB_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: oauth-config
+              key: github-client-id
+        - name: NEXT_PUBLIC_GITHUB_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: oauth-config
+              key: github-client-secret
+        - name: GOOGLE_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: oauth-config
+              key: google-client-id
+        - name: GOOGLE_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: oauth-config
+              key: google-client-secret
+        - name: GITHUB_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: oauth-config
+              key: github-client-id
+        - name: GITHUB_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: oauth-config
+              key: github-client-secret
+        - name: NEXT_PUBLIC_OAUTH_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: oauth-config
+              key: oauth-client-id
+        
+        # Email Configuration from Secret
+        - name: SENDGRID_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: email-config
+              key: sendgrid-api-key
+        - name: DEFAULT_FROM_EMAIL
+          valueFrom:
+            secretKeyRef:
+              name: email-config
+              key: default-from-email
+        - name: MAILHOG_HOST
+          valueFrom:
+            secretKeyRef:
+              name: email-config
+              key: mailhog-host
+        - name: MAILHOG_PORT
+          valueFrom:
+            secretKeyRef:
+              name: email-config
+              key: mailhog-port
         ports:
         - containerPort: 3000
           name: boostflow
